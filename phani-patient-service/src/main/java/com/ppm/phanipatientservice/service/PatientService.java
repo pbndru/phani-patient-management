@@ -1,5 +1,6 @@
 package com.ppm.phanipatientservice.service;
 
+import com.ppm.phanipatientservice.dto.PatientRequestDTO;
 import com.ppm.phanipatientservice.dto.PatientResponseDTO;
 import com.ppm.phanipatientservice.mapper.PatientMapper;
 import com.ppm.phanipatientservice.model.Patient;
@@ -21,5 +22,11 @@ public class PatientService {
 
         return patients.stream()
                 .map(PatientMapper::toDTO).toList();
+    }
+
+    public PatientResponseDTO createPatient(PatientRequestDTO patientRequestDTO) {
+        Patient newPatient = patientRepository.save(
+                PatientMapper.toModel(patientRequestDTO));
+        return PatientMapper.toDTO(newPatient);
     }
 }
